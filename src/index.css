@@ -1,51 +1,56 @@
-/* Maxtronics B2B Wholesale Portal - Electric Wholesale Precision Design System */
+/* Maxtronics B2B Wholesale Portal - Matching Maxtronicsonline.com Brand Palette */
 :root {
-  --primary: #003ED0;
-  --primary-container: #2557F6;
-  --primary-hover: #1A47DF;
-  --primary-fixed: #DDE1FF;
-  --primary-surface: #EBF1FF;
-  --primary-surface-hover: #F0F5FF;
+  /* Brand Electric Cyan & Action Blue from Maxtronicsonline.com */
+  --primary: #008ba3;
+  --primary-container: #0096c7;
+  --primary-hover: #007799;
+  --primary-electric: #00e1ff;
+  --primary-fixed: #e0f7fa;
+  --primary-surface: #f0fafd;
+  --primary-surface-hover: #e0f7fa;
 
-  --secondary: #855300;
-  --secondary-container: #FEA619;
-  --amber-accent: #F59E0B;
-  --amber-light: #FEF3C7;
-  --amber-dark: #B45309;
+  --secondary: #1f2328;
+  --secondary-container: #2d333b;
+  --amber-accent: #f59e0b;
+  --amber-light: #fef3c7;
+  --amber-dark: #b45309;
 
-  --surface: #FAF8FF;
-  --surface-low: #F2F3FF;
-  --surface-container: #EAEDFF;
-  --surface-container-high: #E2E7FF;
-  --surface-container-highest: #D9E2FF;
-  --surface-lowest: #FFFFFF;
+  /* Clean White & Modern Neutral Slate Surfaces (matches Maxtronicsonline.com) */
+  --surface: #ffffff;
+  --surface-low: #f6f8fa;
+  --surface-container: #eef2f6;
+  --surface-container-high: #e2e8f0;
+  --surface-container-highest: #cbd5e1;
+  --surface-lowest: #ffffff;
 
-  --on-surface: #0F1A33; /* Deep Navy */
-  --on-surface-variant: #434656;
-  --secondary-neutral: #5A6785; /* Blue-Grey */
-  --tertiary: #4A515C;
-  --on-primary: #FFFFFF;
+  /* Typography: Slate Charcoal #1f2328 from Maxtronicsonline.com */
+  --on-surface: #1f2328;
+  --on-surface-variant: #57606a;
+  --secondary-neutral: #57606a;
+  --tertiary: #656d76;
+  --on-primary: #ffffff;
 
-  --border-subtle: #E2E9FA;
-  --border-strong: #C4C5D8;
+  /* Clean subtle borders from live website (#eee & #ccc) */
+  --border-subtle: #eeeeee;
+  --border-strong: #cccccc;
 
-  --success: #15803D;
-  --success-bg: #DCFCE7;
-  --error: #BA1A1A;
-  --error-bg: #FFDAD6;
+  --success: #15803d;
+  --success-bg: #dcfce7;
+  --error: #ba1a1a;
+  --error-bg: #ffdad6;
 
   --font-headline: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --radius-xs: 4px;
   --radius-badge: 6px;
-  --radius-btn: 10px; /* Strictly 10px per Maxtronics design system */
-  --radius-card: 20px; /* Engineered 20px curves */
+  --radius-btn: 10px;
+  --radius-card: 20px;
 
-  --shadow-sm: 0 1px 3px rgba(37, 87, 246, 0.04);
-  --shadow-card: 0 8px 24px -4px rgba(37, 87, 246, 0.06), 0 2px 6px -1px rgba(37, 87, 246, 0.03);
-  --shadow-hover: 0 14px 32px -4px rgba(37, 87, 246, 0.10), 0 4px 10px -2px rgba(37, 87, 246, 0.04);
-  --shadow-drawer: 0 24px 48px -8px rgba(15, 26, 51, 0.12), 0 8px 16px -4px rgba(37, 87, 246, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 180, 216, 0.05);
+  --shadow-card: 0 8px 24px -4px rgba(0, 150, 199, 0.07), 0 2px 6px -1px rgba(0, 150, 199, 0.03);
+  --shadow-hover: 0 14px 32px -4px rgba(0, 180, 216, 0.15), 0 4px 10px -2px rgba(0, 150, 199, 0.05);
+  --shadow-drawer: 0 24px 48px -8px rgba(31, 35, 40, 0.16), 0 8px 16px -4px rgba(0, 180, 216, 0.10);
 
   --max-width: 1360px;
 }
@@ -130,13 +135,13 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(37, 87, 246, 0.24);
+  box-shadow: 0 4px 14px rgba(0, 150, 199, 0.24);
 }
 
 .btn-primary:hover {
-  background-color: var(--primary);
+  background-color: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(37, 87, 246, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 180, 216, 0.35);
 }
 
 .btn-primary:active {
@@ -215,7 +220,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-maxtronics:hover {
   box-shadow: var(--shadow-hover);
-  border-color: #cedbfa;
+  border-color: #b2ebf2;
   transform: translateY(-3px);
 }
 

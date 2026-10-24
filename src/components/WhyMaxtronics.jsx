@@ -100,7 +100,7 @@ export const WhyMaxtronics = () => {
               backgroundColor: 'var(--surface-lowest)',
               borderRadius: 'var(--radius-card)',
               padding: '2.5rem',
-              boxShadow: '0 10px 30px rgba(37, 87, 246, 0.06)',
+              boxShadow: '0 10px 30px rgba(0, 180, 216, 0.06)',
               border: '1px solid var(--border-subtle)',
               display: 'flex',
               flexDirection: 'column'

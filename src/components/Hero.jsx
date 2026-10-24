@@ -28,7 +28,7 @@ export const Hero = () => {
           width: '24rem',
           height: '24rem',
           borderRadius: '50%',
-          backgroundColor: 'rgba(37, 87, 246, 0.08)',
+          backgroundColor: 'rgba(0, 180, 216, 0.08)',
           filter: 'blur(64px)'
         }}
       />
@@ -215,7 +215,7 @@ export const Hero = () => {
                 backgroundColor: 'var(--surface-lowest)',
                 borderRadius: 'var(--radius-card)',
                 padding: '2rem',
-                boxShadow: '0 12px 32px rgba(37, 87, 246, 0.08)',
+                boxShadow: '0 12px 32px rgba(0, 180, 216, 0.08)',
                 border: '1px solid var(--border-subtle)'
               }}
             >

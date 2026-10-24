@@ -176,6 +176,29 @@ export const LiveManifestTable = ({
               </span>
               <span>Export CSV</span>
             </button>
+
+            <button
+              onClick={() => (window.location.hash = '#/inventory')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+                padding: '0.6rem 1.15rem',
+                backgroundColor: 'var(--primary-container)',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '0.85rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(0, 150, 199, 0.25)'
+              }}
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                inventory_2
+              </span>
+              <span>Live Inventory (EU SKUs)</span>
+            </button>
           </div>
         </div>
 
@@ -304,13 +327,13 @@ export const LiveManifestTable = ({
                 <th style={{ padding: '1rem 1rem' }}>Stock Status</th>
                 <th style={{ padding: '1rem 1rem' }}>MOQ / Case</th>
                 <th style={{ padding: '1rem 1rem' }}>RRP</th>
-                <th style={{ padding: '1rem 1rem', backgroundColor: 'rgba(37, 87, 246, 0.04)' }}>
+                <th style={{ padding: '1rem 1rem', backgroundColor: 'rgba(0, 180, 216, 0.04)' }}>
                   Tier 1 <span style={{ fontWeight: '400', fontSize: '0.7rem' }}>(1-24)</span>
                 </th>
-                <th style={{ padding: '1rem 1rem', backgroundColor: 'rgba(37, 87, 246, 0.07)' }}>
+                <th style={{ padding: '1rem 1rem', backgroundColor: 'rgba(0, 180, 216, 0.07)' }}>
                   Tier 2 <span style={{ fontWeight: '400', fontSize: '0.7rem' }}>(25-99, -7%)</span>
                 </th>
-                <th style={{ padding: '1rem 1rem', backgroundColor: 'rgba(37, 87, 246, 0.10)' }}>
+                <th style={{ padding: '1rem 1rem', backgroundColor: 'rgba(0, 180, 216, 0.10)' }}>
                   Tier 3 <span style={{ fontWeight: '400', fontSize: '0.7rem' }}>(100+, -14%)</span>
                 </th>
                 <th style={{ padding: '1rem 1.25rem', textAlign: 'center' }}>Allocate Qty</th>
@@ -336,12 +359,12 @@ export const LiveManifestTable = ({
                     <tr
                       key={p.id}
                       style={{
-                        backgroundColor: isEven ? '#ffffff' : '#fafcff',
+                        backgroundColor: isEven ? '#ffffff' : '#f8fafc',
                         borderBottom: '1px solid var(--border-subtle)',
                         transition: 'background-color 0.15s ease'
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f0f5ff')}
-                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = isEven ? '#ffffff' : '#fafcff')}
+                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f0fafd')}
+                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = isEven ? '#ffffff' : '#f8fafc')}
                     >
                       {/* Product */}
                       <td style={{ padding: '1rem 1.25rem' }}>
@@ -413,7 +436,7 @@ export const LiveManifestTable = ({
                           fontSize: '0.9375rem',
                           fontWeight: activeTier === 1 ? '700' : '500',
                           color: activeTier === 1 ? 'var(--primary-container)' : 'var(--on-surface)',
-                          backgroundColor: activeTier === 1 ? 'rgba(37, 87, 246, 0.08)' : 'transparent',
+                          backgroundColor: activeTier === 1 ? 'rgba(0, 180, 216, 0.08)' : 'transparent',
                           borderLeft: activeTier === 1 ? '3px solid var(--primary-container)' : 'none'
                         }}
                       >
@@ -428,7 +451,7 @@ export const LiveManifestTable = ({
                           fontSize: '0.9375rem',
                           fontWeight: activeTier === 2 ? '700' : '500',
                           color: activeTier === 2 ? 'var(--primary-container)' : 'var(--on-surface)',
-                          backgroundColor: activeTier === 2 ? 'rgba(37, 87, 246, 0.08)' : 'transparent',
+                          backgroundColor: activeTier === 2 ? 'rgba(0, 180, 216, 0.08)' : 'transparent',
                           borderLeft: activeTier === 2 ? '3px solid var(--primary-container)' : 'none'
                         }}
                       >
@@ -443,7 +466,7 @@ export const LiveManifestTable = ({
                           fontSize: '0.9375rem',
                           fontWeight: activeTier === 3 ? '700' : '500',
                           color: activeTier === 3 ? 'var(--primary-container)' : 'var(--on-surface)',
-                          backgroundColor: activeTier === 3 ? 'rgba(37, 87, 246, 0.08)' : 'transparent',
+                          backgroundColor: activeTier === 3 ? 'rgba(0, 180, 216, 0.08)' : 'transparent',
                           borderLeft: activeTier === 3 ? '3px solid var(--primary-container)' : 'none'
                         }}
                       >

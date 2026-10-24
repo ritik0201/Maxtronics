@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export const Navbar = ({ cartCount, onOpenCart }) => {
+export const Navbar = ({ cartCount, onOpenCart, currentView = 'home', onNavigate }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -14,11 +14,28 @@ export const Navbar = ({ cartCount, onOpenCart }) => {
 
   const scrollTo = (id) => {
     setMobileMenuOpen(false);
+    if (currentView !== 'home' && onNavigate) {
+      onNavigate('home');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const navLinks = [
+    { label: 'Overview', id: 'hero', isRoute: false },
+    { label: 'Manifest', id: 'manifest', isRoute: false },
+    { label: 'Inventory', view: 'inventory', isRoute: true },
+    { label: 'Categories', id: 'categories', isRoute: false },
+    { label: 'Why Us', id: 'why-maxtronics', isRoute: false },
+    { label: 'Contact', id: 'contact', isRoute: false }
+  ];
 
   return (
     <header
@@ -28,12 +45,12 @@ export const Navbar = ({ cartCount, onOpenCart }) => {
         left: 0,
         width: '100%',
         zIndex: 100,
-        height: '64px',
-        backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.96)' : 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
+        height: '68px',
+        backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.94)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
         borderBottom: '1px solid var(--border-subtle)',
-        boxShadow: isScrolled ? '0 4px 16px rgba(37, 87, 246, 0.06)' : '0 1px 8px rgba(37, 87, 246, 0.04)',
+        boxShadow: isScrolled ? '0 4px 20px rgba(15, 26, 51, 0.05)' : 'none',
         transition: 'all 0.25s ease'
       }}
     >
@@ -43,11 +60,12 @@ export const Navbar = ({ cartCount, onOpenCart }) => {
           height: '100%',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          gap: '1.5rem'
         }}
       >
-        {/* Left: Brand Logo & B2B Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        {/* Left: Brand Logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
           <div
             onClick={() => scrollTo('hero')}
             style={{
@@ -58,18 +76,17 @@ export const Navbar = ({ cartCount, onOpenCart }) => {
               textDecoration: 'none'
             }}
           >
-            {/* Maxtronics Electric SVG Mark */}
             <div
               style={{
-                width: '34px',
-                height: '34px',
-                borderRadius: '8px',
+                width: '36px',
+                height: '36px',
+                borderRadius: '9px',
                 backgroundColor: 'var(--primary-container)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#ffffff',
-                boxShadow: '0 2px 8px rgba(37, 87, 246, 0.3)'
+                boxShadow: '0 2px 8px rgba(0, 150, 199, 0.25)'
               }}
             >
               <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
@@ -91,140 +108,123 @@ export const Navbar = ({ cartCount, onOpenCart }) => {
 
           <span
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              padding: '0.15rem 0.55rem',
-              borderRadius: '4px',
-              fontSize: '0.75rem',
+              fontSize: '0.6875rem',
               fontWeight: '700',
-              letterSpacing: '0.04em',
-              backgroundColor: 'var(--surface-container-high)',
-              color: 'var(--primary)',
-              textTransform: 'uppercase'
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              color: 'var(--primary-container)',
+              backgroundColor: 'var(--surface-container)',
+              padding: '2px 7px',
+              borderRadius: '4px'
             }}
           >
-            B2B WHOLESALE
+            B2B
           </span>
         </div>
 
-        {/* Desktop Nav Links */}
+        {/* Center: Streamlined Desktop Nav */}
         <nav
           style={{
             display: 'none',
             alignItems: 'center',
-            gap: '1.75rem'
+            gap: '0.5rem',
+            backgroundColor: 'var(--surface-low)',
+            padding: '4px 6px',
+            borderRadius: '12px',
+            border: '1px solid var(--border-subtle)'
           }}
           className="desktop-menu"
         >
-          <button
-            onClick={() => scrollTo('categories')}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              color: 'var(--secondary-neutral)',
-              cursor: 'pointer',
-              transition: 'color 0.15s ease'
-            }}
-            onMouseEnter={(e) => (e.target.style.color = 'var(--primary-container)')}
-            onMouseLeave={(e) => (e.target.style.color = 'var(--secondary-neutral)')}
-          >
-            Categories
-          </button>
-          <button
-            onClick={() => scrollTo('why-maxtronics')}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              color: 'var(--secondary-neutral)',
-              cursor: 'pointer',
-              transition: 'color 0.15s ease'
-            }}
-            onMouseEnter={(e) => (e.target.style.color = 'var(--primary-container)')}
-            onMouseLeave={(e) => (e.target.style.color = 'var(--secondary-neutral)')}
-          >
-            Why Maxtronics
-          </button>
-          <button
-            onClick={() => scrollTo('manifest')}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              color: 'var(--secondary-neutral)',
-              cursor: 'pointer',
-              transition: 'color 0.15s ease'
-            }}
-            onMouseEnter={(e) => (e.target.style.color = 'var(--primary-container)')}
-            onMouseLeave={(e) => (e.target.style.color = 'var(--secondary-neutral)')}
-          >
-            Live Manifest
-          </button>
-          <button
-            onClick={() => scrollTo('how-to-order')}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              color: 'var(--secondary-neutral)',
-              cursor: 'pointer',
-              transition: 'color 0.15s ease'
-            }}
-            onMouseEnter={(e) => (e.target.style.color = 'var(--primary-container)')}
-            onMouseLeave={(e) => (e.target.style.color = 'var(--secondary-neutral)')}
-          >
-            How to Order
-          </button>
-          <button
-            onClick={() => scrollTo('contact')}
-            style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              color: 'var(--secondary-neutral)',
-              cursor: 'pointer',
-              transition: 'color 0.15s ease'
-            }}
-            onMouseEnter={(e) => (e.target.style.color = 'var(--primary-container)')}
-            onMouseLeave={(e) => (e.target.style.color = 'var(--secondary-neutral)')}
-          >
-            Contact
-          </button>
+          {navLinks.map((item) => {
+            const isActive = item.isRoute
+              ? currentView === item.view
+              : currentView === 'home' && false;
+
+            return (
+              <button
+                key={item.label}
+                onClick={() => {
+                  if (item.isRoute) {
+                    if (onNavigate) onNavigate(item.view);
+                    else window.location.hash = `#/${item.view}`;
+                  } else {
+                    scrollTo(item.id);
+                  }
+                }}
+                style={{
+                  background: isActive ? '#ffffff' : 'transparent',
+                  border: 'none',
+                  borderRadius: '8px',
+                  padding: '0.4rem 0.85rem',
+                  fontSize: '0.85rem',
+                  fontWeight: isActive ? '700' : '600',
+                  color: isActive ? 'var(--primary-container)' : 'var(--secondary-neutral)',
+                  boxShadow: isActive ? '0 1px 4px rgba(15, 26, 51, 0.08)' : 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) e.currentTarget.style.color = 'var(--on-surface)';
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) e.currentTarget.style.color = 'var(--secondary-neutral)';
+                }}
+              >
+                {item.label === 'Inventory' && (
+                  <span
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--primary-container)',
+                      display: 'inline-block'
+                    }}
+                  />
+                )}
+                {item.label}
+              </button>
+            );
+          })}
         </nav>
 
-        {/* Right: Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+        {/* Right: Focused Actions */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
           {/* Staged Cart button */}
           <button
             onClick={onOpenCart}
-            className="btn-secondary btn-sm"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.45rem',
-              padding: '0.45rem 0.85rem'
+              padding: '0.45rem 0.85rem',
+              borderRadius: '9px',
+              backgroundColor: '#ffffff',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--on-surface)',
+              fontSize: '0.8125rem',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+              boxShadow: '0 1px 3px rgba(15, 26, 51, 0.04)'
             }}
             title="Staged Allocations"
           >
             <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary-container)' }}>
               shopping_bag
             </span>
-            <span style={{ fontSize: '0.8125rem', fontWeight: '600' }}>Staged Order</span>
+            <span className="cart-label">Staged</span>
             {cartCount > 0 && (
               <span
                 style={{
                   backgroundColor: 'var(--primary-container)',
                   color: '#ffffff',
-                  fontSize: '0.75rem',
+                  fontSize: '0.7rem',
                   fontWeight: '700',
-                  padding: '0.1rem 0.4rem',
-                  borderRadius: 'var(--radius-badge)'
+                  padding: '1px 6px',
+                  borderRadius: '10px'
                 }}
               >
                 {cartCount}
@@ -232,40 +232,48 @@ export const Navbar = ({ cartCount, onOpenCart }) => {
             )}
           </button>
 
-          {/* Get Trade Pricing CTA */}
+          {/* Primary CTA */}
           <button
             onClick={() => scrollTo('contact')}
-            className="desktop-cta btn-primary btn-sm"
+            className="desktop-cta"
             style={{
               display: 'none',
-              padding: '0.55rem 1.15rem'
+              padding: '0.5rem 1.1rem',
+              backgroundColor: 'var(--primary-container)',
+              color: '#ffffff',
+              borderRadius: '9px',
+              border: 'none',
+              fontSize: '0.8125rem',
+              fontWeight: '700',
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(0, 150, 199, 0.25)',
+              transition: 'all 0.15s ease'
             }}
           >
-            <span>Get Trade Pricing</span>
+            <span>Trade Enquiry</span>
           </button>
 
-          {/* User Profile Avatar */}
+          {/* Compact User Profile */}
           <div
             style={{
-              width: '34px',
-              height: '34px',
+              width: '32px',
+              height: '32px',
               borderRadius: '50%',
-              backgroundColor: 'var(--primary)',
+              backgroundColor: 'var(--surface-container)',
+              color: 'var(--secondary-neutral)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ffffff',
-              boxShadow: 'var(--shadow-sm)',
               cursor: 'pointer'
             }}
-            title="Verified Trade Account"
+            title="Verified B2B Account"
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: '17px' }}>
               person
             </span>
           </div>
 
-          {/* Hamburger button */}
+          {/* Hamburger button for Mobile */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="mobile-btn"
@@ -294,33 +302,41 @@ export const Navbar = ({ cartCount, onOpenCart }) => {
             padding: '1rem 1.5rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.625rem'
+            gap: '0.5rem'
           }}
         >
-          {['categories', 'why-maxtronics', 'manifest', 'how-to-order', 'contact'].map((id) => (
+          {navLinks.map((item) => (
             <button
-              key={id}
-              onClick={() => scrollTo(id)}
+              key={item.label}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (item.isRoute) {
+                  if (onNavigate) onNavigate(item.view);
+                  else window.location.hash = `#/${item.view}`;
+                } else {
+                  scrollTo(item.id);
+                }
+              }}
               style={{
                 textAlign: 'left',
                 padding: '0.65rem 0.75rem',
                 borderRadius: '8px',
-                background: 'none',
+                background: item.isRoute && currentView === item.view ? 'var(--surface-low)' : 'none',
                 border: 'none',
                 fontSize: '0.9375rem',
                 fontWeight: '600',
-                color: 'var(--on-surface)',
+                color: item.isRoute && currentView === item.view ? 'var(--primary-container)' : 'var(--on-surface)',
                 cursor: 'pointer'
               }}
             >
-              {id.replace('-', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+              {item.label}
             </button>
           ))}
         </div>
       )}
 
       <style>{`
-        @media (min-width: 860px) {
+        @media (min-width: 900px) {
           .desktop-menu {
             display: flex !important;
           }
@@ -331,9 +347,12 @@ export const Navbar = ({ cartCount, onOpenCart }) => {
             display: none !important;
           }
         }
-        @media (max-width: 859px) {
+        @media (max-width: 899px) {
           .mobile-btn {
             display: block !important;
+          }
+          .cart-label {
+            display: none;
           }
         }
       `}</style>

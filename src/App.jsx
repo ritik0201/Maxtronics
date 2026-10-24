@@ -8,12 +8,28 @@ import { HowToOrder } from './components/HowToOrder';
 import { ContactSection } from './components/ContactSection';
 import { CartDrawer } from './components/CartDrawer';
 import { Footer } from './components/Footer';
+import Inventory from './components/Inventory';
 import { MAXTRONICS_PRODUCTS } from './data/maxtronicsData';
 
 export function App() {
+  const [currentView, setCurrentView] = useState(() => {
+    return window.location.hash.toLowerCase().includes('inventory') ? 'inventory' : 'home';
+  });
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toast, setToast] = useState(null);
+
+  useEffect(() => {
+    const handleHash = () => {
+      if (window.location.hash.toLowerCase().includes('inventory')) {
+        setCurrentView('inventory');
+      } else {
+        setCurrentView('home');
+      }
+    };
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   // Pre-loaded staged allocations for realistic wholesale demo
   const [cart, setCart] = useState(() => [
@@ -102,26 +118,44 @@ export function App() {
       <Navbar
         cartCount={cart.reduce((sum, item) => sum + item.allocatedQty, 0)}
         onOpenCart={() => setIsCartOpen(true)}
+        currentView={currentView}
+        onNavigate={(view) => {
+          setCurrentView(view);
+          window.location.hash = view === 'inventory' ? '#/inventory' : '';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
 
-      {/* Main Flow */}
+      {/* Main Flow or Inventory View */}
       <main style={{ flex: 1, paddingTop: '64px' }}>
-        <Hero />
+        {currentView === 'inventory' ? (
+          <Inventory
+            onBack={() => {
+              setCurrentView('home');
+              window.location.hash = '';
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
+        ) : (
+          <>
+            <Hero />
 
-        <Categories onSelectCategory={(catId) => setSelectedCategory(catId)} />
+            <Categories onSelectCategory={(catId) => setSelectedCategory(catId)} />
 
-        <WhyMaxtronics />
+            <WhyMaxtronics />
 
-        <LiveManifestTable
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          onStageProduct={handleStageProduct}
-          onShowToast={showToast}
-        />
+            <LiveManifestTable
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              onStageProduct={handleStageProduct}
+              onShowToast={showToast}
+            />
 
-        <HowToOrder />
+            <HowToOrder />
 
-        <ContactSection onShowToast={showToast} />
+            <ContactSection onShowToast={showToast} />
+          </>
+        )}
       </main>
 
       {/* Dual Footer */}
