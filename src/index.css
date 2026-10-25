@@ -1,58 +1,46 @@
-/* Maxtronics B2B Wholesale Portal - Matching Maxtronicsonline.com Brand Palette */
+/* Maxtronics B2B Wholesale Portal - Styled identical to Basco Distribution with Maxtronics Color Theme */
 :root {
-  /* Brand Electric Cyan & Action Blue from Maxtronicsonline.com */
-  --primary: #008ba3;
-  --primary-container: #0096c7;
-  --primary-hover: #007799;
-  --primary-electric: #00e1ff;
-  --primary-fixed: #e0f7fa;
-  --primary-surface: #f0fafd;
-  --primary-surface-hover: #e0f7fa;
+  /* Maxtronics Cyan & Slate Brand Color Theme */
+  --color-primary: #008ba3;
+  --color-primary-hover: #007799;
+  --color-primary-light: #f0fafd;
+  --color-primary-light-border: #d0f0f7;
+  --color-bg-light: #fffcf9;
+  --color-bg-card: #ffffff;
+  --color-text-dark: #111827;
+  --color-text-heading: #1e293b;
+  --color-text-muted: #4b5563;
+  --color-border-light: #e5e7eb;
+  --color-accent-amber: #f59e0b;
 
-  --secondary: #1f2328;
-  --secondary-container: #2d333b;
-  --amber-accent: #f59e0b;
+  /* Backward Compatibility Tokens */
+  --primary: var(--color-primary);
+  --primary-container: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
+  --primary-light: var(--color-primary-light);
+  --surface: var(--color-bg-card);
+  --surface-low: var(--color-bg-light);
+  --surface-lowest: #ffffff;
+  --surface-container: #f3f6f9;
+  --surface-container-high: #e2e8f0;
+  --on-surface: var(--color-text-dark);
+  --on-surface-variant: var(--color-text-muted);
+  --border-subtle: var(--color-border-light);
+  --border-strong: #cbd5e1;
   --amber-light: #fef3c7;
   --amber-dark: #b45309;
+  --amber-accent: #f59e0b;
+  --radius-badge: 6px;
+  --radius-card: 16px;
+  --radius-btn: 12px;
 
-  /* Clean White & Modern Neutral Slate Surfaces (matches Maxtronicsonline.com) */
-  --surface: #ffffff;
-  --surface-low: #f6f8fa;
-  --surface-container: #eef2f6;
-  --surface-container-high: #e2e8f0;
-  --surface-container-highest: #cbd5e1;
-  --surface-lowest: #ffffff;
-
-  /* Typography: Slate Charcoal #1f2328 from Maxtronicsonline.com */
-  --on-surface: #1f2328;
-  --on-surface-variant: #57606a;
-  --secondary-neutral: #57606a;
-  --tertiary: #656d76;
-  --on-primary: #ffffff;
-
-  /* Clean subtle borders from live website (#eee & #ccc) */
-  --border-subtle: #eeeeee;
-  --border-strong: #cccccc;
-
-  --success: #15803d;
-  --success-bg: #dcfce7;
-  --error: #ba1a1a;
-  --error-bg: #ffdad6;
-
-  --font-headline: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Fonts matching Basco Distribution */
+  --font-headline: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  --radius-xs: 4px;
-  --radius-badge: 6px;
-  --radius-btn: 10px;
-  --radius-card: 20px;
-
-  --shadow-sm: 0 1px 3px rgba(0, 180, 216, 0.05);
-  --shadow-card: 0 8px 24px -4px rgba(0, 150, 199, 0.07), 0 2px 6px -1px rgba(0, 150, 199, 0.03);
-  --shadow-hover: 0 14px 32px -4px rgba(0, 180, 216, 0.15), 0 4px 10px -2px rgba(0, 150, 199, 0.05);
-  --shadow-drawer: 0 24px 48px -8px rgba(31, 35, 40, 0.16), 0 8px 16px -4px rgba(0, 180, 216, 0.10);
-
-  --max-width: 1360px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  --shadow-hover: 0 12px 30px -4px rgba(0, 139, 163, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
 }
 
 *, *::before, *::after {
@@ -64,18 +52,130 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  background-color: var(--surface);
-  color: var(--on-surface);
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
 }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--surface);
-  color: var(--on-surface);
-  line-height: 1.5;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
+  color: var(--color-text-heading);
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.25s ease-in-out;
+  font-family: var(--font-body);
+}
+
+/* Basco Layout Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.container-max {
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-max {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Basco Card Shadow */
+.card-shadow {
+  background-color: var(--color-bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border-light);
+}
+
+/* Basco Solid Button */
+.btn-solid {
+  background-color: var(--color-primary);
+  color: #ffffff !important;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-solid:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 139, 163, 0.2);
+}
+
+/* Basco Outline Button */
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary) !important;
+  border: 1px solid var(--color-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary-light);
+  transform: translateY(-1px);
 }
 
 /* Material Symbols icon helper */
@@ -94,167 +194,16 @@ body {
   vertical-align: middle;
 }
 
-/* Tabular figures for pricing alignment */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
 }
 
-/* Container */
-.container-max {
-  width: 100%;
-  max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-headline);
-  color: var(--on-surface);
-  font-weight: 700;
-  line-height: 1.25;
-}
-
-/* Primary buttons with 10px radius */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: var(--primary-container);
-  color: var(--on-primary);
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-btn);
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(0, 150, 199, 0.24);
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 180, 216, 0.35);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-/* Secondary outline button */
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: var(--surface-lowest);
-  color: var(--on-surface);
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-btn);
-  border: 1px solid var(--border-subtle);
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
-}
-
-.btn-secondary:hover {
-  background-color: var(--primary-surface-hover);
-  border-color: var(--primary-container);
-  color: var(--primary-container);
-  transform: translateY(-2px);
-}
-
-/* Small button */
-.btn-sm {
-  padding: 0.45rem 0.95rem;
-  font-size: 0.8125rem;
-  border-radius: 8px;
-}
-
-/* Badges with 6px-8px radius */
-.badge-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.65rem;
-  border-radius: var(--radius-badge);
-  font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 1;
-}
-
-.badge-amber {
-  background-color: var(--amber-light);
-  color: var(--amber-dark);
-}
-
-.badge-platform {
-  background-color: var(--primary-surface);
-  color: var(--primary-container);
-}
-
-.badge-instock {
-  background-color: var(--success-bg);
-  color: var(--success);
-}
-
-/* Cards with 20px radius */
-.card-maxtronics {
-  background-color: var(--surface-lowest);
-  border-radius: var(--radius-card);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-card);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card-maxtronics:hover {
-  box-shadow: var(--shadow-hover);
-  border-color: #b2ebf2;
-  transform: translateY(-3px);
-}
-
-/* Custom Scrollbar for matrix table */
-.custom-scroll::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
-}
-
-.custom-scroll::-webkit-scrollbar-track {
-  background: var(--surface-low);
-}
-
-.custom-scroll::-webkit-scrollbar-thumb {
-  background: var(--surface-container-high);
-  border-radius: 4px;
-}
-
-.custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-container);
-}
-
-/* Micro Pulse */
 @keyframes pulseDot {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scale(0.85);
-  }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
 }
 
 .pulse-dot {
-  animation: pulseDot 2s infinite ease-in-out;
+  animation: pulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

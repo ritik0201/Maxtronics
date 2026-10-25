@@ -3,397 +3,273 @@ import React from 'react';
 export const Hero = () => {
   const scrollTo = (id) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) {
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = el.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: 'smooth'
+      });
+    }
   };
+
+  const stats = [
+    { label: "Established", value: "2012" },
+    { label: "Sourcing Network", value: "Global" },
+    { label: "Distribution Focus", value: "Institutional" },
+    { label: "Retail Partnerships", value: "B2B Trade" }
+  ];
 
   return (
     <section
-      id="hero"
+      id="about"
       style={{
-        position: 'relative',
-        overflow: 'hidden',
-        backgroundColor: 'var(--surface-low)',
-        paddingTop: '5rem',
-        paddingBottom: '5.5rem',
-        borderBottom: '1px solid var(--border-subtle)'
+        paddingTop: '3.5rem',
+        paddingBottom: '4.5rem',
+        background: 'linear-gradient(180deg, var(--color-bg-light) 0%, #ffffff 100%)',
+        borderBottom: '1px solid var(--color-border-light)'
       }}
     >
-      {/* Ambient pale blue light gradients */}
-      <div
-        style={{
-          pointerEvents: 'none',
-          position: 'absolute',
-          top: '-6rem',
-          left: '-5rem',
-          width: '24rem',
-          height: '24rem',
-          borderRadius: '50%',
-          backgroundColor: 'rgba(0, 180, 216, 0.08)',
-          filter: 'blur(64px)'
-        }}
-      />
-      <div
-        style={{
-          pointerEvents: 'none',
-          position: 'absolute',
-          top: '50%',
-          right: '-6rem',
-          width: '26rem',
-          height: '26rem',
-          borderRadius: '50%',
-          backgroundColor: 'rgba(217, 226, 255, 0.45)',
-          filter: 'blur(72px)'
-        }}
-      />
-
-      <div className="container-max" style={{ position: 'relative' }}>
+      {/* 2-Column Hero Grid matching Basco Distribution */}
+      <div className="container">
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
             gap: '3rem',
-            alignItems: 'center'
+            alignItems: 'center',
+            marginBottom: '4rem'
           }}
+          className="hero-grid"
         >
-          {/* Left Column: Value Proposition */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            {/* Amber Mini-Badge */}
-            <div
+          {/* Left Column: Heading & Value Proposition */}
+          <div>
+            <span
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.45rem',
-                padding: '0.3rem 0.85rem',
-                borderRadius: 'var(--radius-badge)',
-                backgroundColor: 'var(--amber-light)',
-                color: 'var(--amber-dark)',
+                color: 'var(--color-primary)',
+                fontWeight: 700,
                 fontSize: '0.75rem',
-                fontWeight: '700',
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                boxShadow: 'var(--shadow-sm)',
-                marginBottom: '1rem'
+                letterSpacing: '1.2px',
+                border: '1px solid var(--color-primary-light-border)',
+                padding: '0.35rem 0.95rem',
+                borderRadius: '9999px',
+                backgroundColor: 'var(--color-primary-light)',
+                display: 'inline-block',
+                textTransform: 'uppercase'
               }}
             >
-              <span
-                className="pulse-dot"
-                style={{
-                  width: '7px',
-                  height: '7px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--amber-accent)',
-                  display: 'inline-block'
-                }}
-              />
-              <span>Trade Only</span>
-            </div>
+              ESTABLISHED SINCE 2012
+            </span>
 
-            {/* Main Hero Headline */}
-            <h1
-              style={{
-                fontFamily: 'var(--font-headline)',
-                fontSize: 'clamp(2.35rem, 5vw, 3.5rem)',
-                fontWeight: '700',
-                letterSpacing: '-0.03em',
-                lineHeight: 1.15,
-                color: 'var(--on-surface)',
-                marginBottom: '1rem'
-              }}
-            >
-              Gaming Wholesale, <br />
-              <span style={{ color: 'var(--primary-container)' }}>Simplified.</span>
-            </h1>
-
-            {/* Subtext */}
             <p
               style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '1.125rem',
-                color: 'var(--on-surface-variant)',
-                maxWidth: '560px',
-                lineHeight: 1.6,
-                marginBottom: '2rem'
+                marginTop: '1.25rem',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: 'var(--color-primary)',
+                letterSpacing: '1.5px',
+                textTransform: 'uppercase'
               }}
             >
-              Consoles, games and accessories at trade prices, shipped worldwide to verified gaming retailers and e-commerce operators.
+              GLOBAL SOURCING • WHOLESALE DISTRIBUTION
             </p>
 
-            {/* CTAs */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-              <button
-                onClick={() => scrollTo('contact')}
-                className="btn-primary"
-                style={{
-                  height: '48px',
-                  padding: '0 1.75rem',
-                  fontSize: '0.9375rem',
-                  fontWeight: '600'
-                }}
-              >
-                Apply for Trade Account
-              </button>
-
-              <button
-                onClick={() => scrollTo('manifest')}
-                className="btn-secondary"
-                style={{
-                  height: '48px',
-                  padding: '0 1.5rem',
-                  fontSize: '0.9375rem',
-                  fontWeight: '600'
-                }}
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary-container)' }}>
-                  table_chart
-                </span>
-                <span>Live Manifest</span>
-              </button>
-
-              <button
-                onClick={() => scrollTo('categories')}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  fontSize: '0.875rem',
-                  fontWeight: '600',
-                  color: 'var(--primary-container)',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: '0.5rem 0.75rem'
-                }}
-              >
-                <span>See categories</span>
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_downward</span>
-              </button>
-            </div>
-
-            {/* Mini Inline Metrics */}
-            <div
+            <h1
               style={{
-                paddingTop: '1.25rem',
-                borderTop: '1px solid var(--border-subtle)',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                gap: '0.85rem',
-                fontSize: '0.875rem',
-                color: 'var(--secondary-neutral)'
+                fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)',
+                fontWeight: 800,
+                lineHeight: 1.15,
+                margin: '1rem 0 1.25rem 0',
+                color: 'var(--color-text-heading)',
+                fontFamily: 'var(--font-headline)'
               }}
             >
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--on-surface)', fontWeight: '600' }}>
-                <span className="material-symbols-outlined" style={{ color: 'var(--primary-container)', fontSize: '18px' }}>
-                  sports_esports
-                </span>
-                All Platforms
-              </span>
-              <span style={{ color: 'var(--border-strong)', fontWeight: 'bold' }}>·</span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--on-surface)', fontWeight: '600' }}>
-                <span className="material-symbols-outlined" style={{ color: 'var(--primary-container)', fontSize: '18px' }}>
-                  public
-                </span>
-                Worldwide Shipping
-              </span>
-              <span style={{ color: 'var(--border-strong)', fontWeight: 'bold' }}>·</span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--on-surface)', fontWeight: '600' }}>
-                <span className="material-symbols-outlined" style={{ color: 'var(--primary-container)', fontSize: '18px' }}>
-                  payments
-                </span>
-                Trade Pricing
-              </span>
+              Global Distribution of Consoles, Gaming Hardware & Software
+            </h1>
+
+            <p
+              style={{
+                fontSize: '1.05rem',
+                color: 'var(--color-text-muted)',
+                marginBottom: '2rem',
+                maxWidth: '600px',
+                lineHeight: 1.6
+              }}
+            >
+              Trusted wholesale partner for original video game hardware, sealed software, premium peripherals, and globally sourced consumer electronics.
+            </p>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+              <a
+                href="#apply"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('apply');
+                }}
+                className="btn-solid"
+                style={{ padding: '0.85rem 1.75rem', fontSize: '1rem' }}
+              >
+                Apply for Wholesale Account
+              </a>
+              <a
+                href="#manifest"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('manifest');
+                }}
+                className="btn-outline"
+                style={{ padding: '0.85rem 1.75rem', fontSize: '1rem' }}
+              >
+                Browse Live Manifest
+              </a>
             </div>
           </div>
 
-          {/* Right Column: White Quick Facts Card (20px radius) */}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div
-              className="card-maxtronics"
+          {/* Right Column: Why Choose Card matching Basco Distribution */}
+          <div
+            id="why-choose"
+            className="card-shadow"
+            style={{
+              padding: '2.5rem',
+              backgroundColor: '#ffffff'
+            }}
+          >
+            <h3
               style={{
-                width: '100%',
-                maxWidth: '460px',
-                backgroundColor: 'var(--surface-lowest)',
-                borderRadius: 'var(--radius-card)',
-                padding: '2rem',
-                boxShadow: '0 12px 32px rgba(0, 180, 216, 0.08)',
-                border: '1px solid var(--border-subtle)'
+                marginBottom: '1.5rem',
+                fontSize: '1.25rem',
+                fontWeight: 700,
+                color: 'var(--color-text-heading)',
+                fontFamily: 'var(--font-headline)'
               }}
             >
-              {/* Header */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '1.25rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-                  <div
-                    style={{
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '8px',
-                      backgroundColor: 'var(--surface-container)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--primary-container)'
-                    }}
-                  >
-                    <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>verified</span>
-                  </div>
-                  <h2 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.125rem', fontWeight: '700', color: 'var(--on-surface)' }}>
-                    Quick Facts
-                  </h2>
-                </div>
+              Why Choose MAXTRONICS
+            </h3>
 
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
                 <span
                   style={{
-                    padding: '0.25rem 0.65rem',
-                    borderRadius: '4px',
-                    backgroundColor: 'var(--surface-container-high)',
-                    color: 'var(--primary-container)',
-                    fontSize: '0.75rem',
-                    fontWeight: '700'
+                    width: '10px',
+                    height: '10px',
+                    backgroundColor: 'var(--color-primary)',
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                    marginTop: '6px'
                   }}
-                >
-                  Live Manifests
-                </span>
-              </div>
+                />
+                <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', margin: 0, lineHeight: 1.5 }}>
+                  <strong style={{ color: 'var(--color-text-dark)' }}>Global</strong> supplier network across UK, Europe, US and Asia
+                </p>
+              </li>
 
-              {/* 4 Feature Bullet List */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                  <div
-                    style={{
-                      width: '24px',
-                      height: '24px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--surface-container-high)',
-                      color: 'var(--primary-container)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      marginTop: '2px'
-                    }}
-                  >
-                    <span className="material-symbols-outlined" style={{ fontSize: '15px', fontWeight: 'bold' }}>check</span>
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '0.9375rem', fontWeight: '600', color: 'var(--on-surface)' }}>Genuine stock</h4>
-                    <p style={{ fontSize: '0.8125rem', color: 'var(--on-surface-variant)', marginTop: '0.15rem' }}>
-                      100% official factory-sealed hardware and boxed software.
-                    </p>
-                  </div>
-                </div>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                <span
+                  style={{
+                    width: '10px',
+                    height: '10px',
+                    backgroundColor: 'var(--color-primary)',
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                    marginTop: '6px'
+                  }}
+                />
+                <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', margin: 0, lineHeight: 1.5 }}>
+                  <strong style={{ color: 'var(--color-text-dark)' }}>Fast dispatch & fulfillment</strong> with competitive wholesale volume pricing
+                </p>
+              </li>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                  <div
-                    style={{
-                      width: '24px',
-                      height: '24px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--surface-container-high)',
-                      color: 'var(--primary-container)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      marginTop: '2px'
-                    }}
-                  >
-                    <span className="material-symbols-outlined" style={{ fontSize: '15px', fontWeight: 'bold' }}>check</span>
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '0.9375rem', fontWeight: '600', color: 'var(--on-surface)' }}>Competitive trade pricing</h4>
-                    <p style={{ fontSize: '0.8125rem', color: 'var(--on-surface-variant)', marginTop: '0.15rem' }}>
-                      Tiered volume rates with weekly verified manifest updates.
-                    </p>
-                  </div>
-                </div>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                <span
+                  style={{
+                    width: '10px',
+                    height: '10px',
+                    backgroundColor: 'var(--color-primary)',
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                    marginTop: '6px'
+                  }}
+                />
+                <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', margin: 0, lineHeight: 1.5 }}>
+                  <strong style={{ color: 'var(--color-text-dark)' }}>Exclusive</strong> allocation access for high-demand hardware and consoles
+                </p>
+              </li>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                  <div
-                    style={{
-                      width: '24px',
-                      height: '24px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--surface-container-high)',
-                      color: 'var(--primary-container)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      marginTop: '2px'
-                    }}
-                  >
-                    <span className="material-symbols-outlined" style={{ fontSize: '15px', fontWeight: 'bold' }}>check</span>
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '0.9375rem', fontWeight: '600', color: 'var(--on-surface)' }}>Fast dispatch</h4>
-                    <p style={{ fontSize: '0.8125rem', color: 'var(--on-surface-variant)', marginTop: '0.15rem' }}>
-                      Same-day warehouse fulfillment & insured global courier freight.
-                    </p>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                  <div
-                    style={{
-                      width: '24px',
-                      height: '24px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--surface-container-high)',
-                      color: 'var(--primary-container)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      marginTop: '2px'
-                    }}
-                  >
-                    <span className="material-symbols-outlined" style={{ fontSize: '15px', fontWeight: 'bold' }}>check</span>
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '0.9375rem', fontWeight: '600', color: 'var(--on-surface)' }}>Dedicated account manager</h4>
-                    <p style={{ fontSize: '0.8125rem', color: 'var(--on-surface-variant)', marginTop: '0.15rem' }}>
-                      Direct wholesale rep for allocation holds and bespoke dispatch.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Sparkline Logistics Card */}
-              <div
-                style={{
-                  marginTop: '1.5rem',
-                  padding: '0.875rem 1.15rem',
-                  borderRadius: '12px',
-                  backgroundColor: 'var(--surface-low)',
-                  border: '1px solid var(--border-subtle)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <div>
-                  <span style={{ display: 'block', fontSize: '0.6875rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--secondary-neutral)', letterSpacing: '0.04em' }}>
-                    Avg Logistics Turnaround
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-headline)', fontSize: '1.25rem', fontWeight: '800', color: 'var(--on-surface)' }}>
-                    &lt; 18 Hours
-                  </span>
-                </div>
-
-                <svg width="84" height="34" viewBox="0 0 100 40" fill="none">
-                  <path
-                    d="M0 35 L20 28 L40 32 L60 14 L80 18 L100 4"
-                    stroke="#2557F6"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                <span
+                  style={{
+                    width: '10px',
+                    height: '10px',
+                    backgroundColor: 'var(--color-primary)',
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                    marginTop: '6px'
+                  }}
+                />
+                <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', margin: 0, lineHeight: 1.5 }}>
+                  <strong style={{ color: 'var(--color-text-dark)' }}>Dedicated account support</strong> and manifest guarantees for trade partners
+                </p>
+              </li>
+            </ul>
           </div>
         </div>
+
+        {/* Stats Row matching Basco Distribution */}
+        <div
+          id="stats"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gap: '1.25rem'
+          }}
+        >
+          {stats.map((stat, idx) => (
+            <div
+              key={idx}
+              className="card-shadow"
+              style={{
+                padding: '1.75rem 1.25rem',
+                textAlign: 'center',
+                backgroundColor: '#ffffff'
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: '2rem',
+                  marginBottom: '0.35rem',
+                  fontWeight: 800,
+                  color: 'var(--color-primary)',
+                  fontFamily: 'var(--font-headline)'
+                }}
+              >
+                {stat.value}
+              </h2>
+              <p
+                style={{
+                  fontSize: '0.875rem',
+                  color: 'var(--color-text-muted)',
+                  fontWeight: 500,
+                  margin: 0
+                }}
+              >
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
+
+      <style>{`
+        @media (min-width: 992px) {
+          .hero-grid {
+            grid-template-columns: 1.2fr 0.8fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };
+
+export default Hero;

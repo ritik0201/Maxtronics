@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Categories } from './components/Categories';
-import { WhyMaxtronics } from './components/WhyMaxtronics';
 import { LiveManifestTable } from './components/LiveManifestTable';
-import { HowToOrder } from './components/HowToOrder';
-import { ContactSection } from './components/ContactSection';
+import { WholesalePartnerSection } from './components/WholesalePartnerSection';
 import { CartDrawer } from './components/CartDrawer';
 import { Footer } from './components/Footer';
 import Inventory from './components/Inventory';
@@ -21,7 +19,8 @@ export function App() {
 
   useEffect(() => {
     const handleHash = () => {
-      if (window.location.hash.toLowerCase().includes('inventory')) {
+      const hash = window.location.hash.toLowerCase();
+      if (hash.includes('inventory')) {
         setCurrentView('inventory');
       } else {
         setCurrentView('home');
@@ -31,22 +30,22 @@ export function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  // Pre-loaded staged allocations for realistic wholesale demo
+  // Pre-loaded staged allocations
   const [cart, setCart] = useState(() => [
     {
-      ...MAXTRONICS_PRODUCTS[0], // PS5 Slim Console
+      ...MAXTRONICS_PRODUCTS[0],
       allocatedQty: 10,
       currencySymbol: '£',
       currencyRate: 1.0
     },
     {
-      ...MAXTRONICS_PRODUCTS[1], // DualSense Controller
+      ...MAXTRONICS_PRODUCTS[1],
       allocatedQty: 24,
       currencySymbol: '£',
       currencyRate: 1.0
     },
     {
-      ...MAXTRONICS_PRODUCTS[2], // Astro Bot
+      ...MAXTRONICS_PRODUCTS[2],
       allocatedQty: 25,
       currencySymbol: '£',
       currencyRate: 1.0
@@ -113,8 +112,8 @@ export function App() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--surface)' }}>
-      {/* Sticky Header */}
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--color-bg-light)' }}>
+      {/* Basco Styled Sticky Header */}
       <Navbar
         cartCount={cart.reduce((sum, item) => sum + item.allocatedQty, 0)}
         onOpenCart={() => setIsCartOpen(true)}
@@ -126,8 +125,8 @@ export function App() {
         }}
       />
 
-      {/* Main Flow or Inventory View */}
-      <main style={{ flex: 1, paddingTop: '64px' }}>
+      {/* Main Flow or Dedicated Inventory View */}
+      <main style={{ flex: 1 }}>
         {currentView === 'inventory' ? (
           <Inventory
             onBack={() => {
@@ -142,8 +141,6 @@ export function App() {
 
             <Categories onSelectCategory={(catId) => setSelectedCategory(catId)} />
 
-            <WhyMaxtronics />
-
             <LiveManifestTable
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
@@ -151,17 +148,15 @@ export function App() {
               onShowToast={showToast}
             />
 
-            <HowToOrder />
-
-            <ContactSection onShowToast={showToast} />
+            <WholesalePartnerSection onShowToast={showToast} />
           </>
         )}
       </main>
 
-      {/* Dual Footer */}
+      {/* Basco Centered Footer */}
       <Footer />
 
-      {/* Cart Drawer */}
+      {/* Staged Order Cart Drawer */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
@@ -179,26 +174,26 @@ export function App() {
             position: 'fixed',
             bottom: '24px',
             right: '24px',
-            zIndex: 300,
-            backgroundColor: '#0F1A33',
+            zIndex: 1100,
+            backgroundColor: '#111827',
             color: '#ffffff',
             padding: '0.85rem 1.25rem',
-            borderRadius: '10px',
-            boxShadow: '0 8px 24px rgba(15, 26, 51, 0.25)',
+            borderRadius: '12px',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
             display: 'flex',
             alignItems: 'center',
             gap: '0.625rem',
             fontSize: '0.875rem',
-            fontWeight: '600',
+            fontWeight: 600,
             border: '1px solid rgba(255, 255, 255, 0.1)',
-            animation: 'slideUp 0.25s ease'
+            animation: 'slideUpToast 0.25s ease'
           }}
         >
           <span
             className="material-symbols-outlined"
             style={{
               fontSize: '20px',
-              color: toast.type === 'success' ? '#4ade80' : 'var(--primary-container)'
+              color: toast.type === 'success' ? '#4ade80' : 'var(--color-primary)'
             }}
           >
             {toast.type === 'success' ? 'check_circle' : 'info'}
@@ -208,7 +203,7 @@ export function App() {
       )}
 
       <style>{`
-        @keyframes slideUp {
+        @keyframes slideUpToast {
           from {
             opacity: 0;
             transform: translateY(12px);

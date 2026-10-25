@@ -1,114 +1,95 @@
 import React from 'react';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export const Footer = () => {
   return (
-    <footer style={{ width: '100%', backgroundColor: 'var(--surface-lowest)', borderTop: '1px solid var(--border-subtle)' }}>
-      {/* Upper Footer */}
-      <div style={{ padding: '3rem 0 2rem 0' }}>
+    <footer
+      style={{
+        paddingTop: '5rem',
+        paddingBottom: '4rem',
+        backgroundColor: '#ffffff',
+        textAlign: 'center',
+        borderTop: '1px solid var(--color-border-light)'
+      }}
+    >
+      <div className="container">
+        {/* Brand Mark matching Basco Distribution */}
         <div
-          className="container-max"
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1.5rem'
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.65rem',
+            marginBottom: '1.5rem'
           }}
         >
           <div
             style={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '10px',
+              backgroundColor: 'var(--color-primary)',
               display: 'flex',
-              flexWrap: 'wrap',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1.5rem'
+              justifyContent: 'center',
+              color: '#ffffff',
+              boxShadow: '0 2px 8px rgba(0, 139, 163, 0.25)'
             }}
           >
-            {/* Left: Logo & B2B Badge */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div
-                style={{
-                  width: '28px',
-                  height: '28px',
-                  borderRadius: '6px',
-                  backgroundColor: 'var(--primary-container)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff'
-                }}
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>bolt</span>
-              </div>
-              <span style={{ fontFamily: 'var(--font-headline)', fontSize: '1.15rem', fontWeight: '800', color: 'var(--on-surface)' }}>
-                Maxtronics
-              </span>
-              <span
-                style={{
-                  padding: '0.15rem 0.5rem',
-                  borderRadius: '4px',
-                  backgroundColor: 'var(--surface-container-high)',
-                  color: 'var(--primary-container)',
-                  fontSize: '0.72rem',
-                  fontWeight: '700'
-                }}
-              >
-                B2B Wholesale
-              </span>
-            </div>
-
-            {/* Center: Quick Links */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1.5rem', fontSize: '0.875rem', color: 'var(--secondary-neutral)' }}>
-              <a href="#hero" style={{ color: 'inherit', textDecoration: 'none' }}>Trade Terms & Conditions</a>
-              <a href="#hero" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</a>
-              <a href="#hero" style={{ color: 'inherit', textDecoration: 'none' }}>Shipping & Returns</a>
-            </div>
-
-            {/* Right: Copyright */}
-            <div style={{ fontSize: '0.8125rem', color: 'var(--secondary-neutral)' }}>
-              © {new Date().getFullYear()} Maxtronics. All rights reserved.
-            </div>
+            <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>
+              bolt
+            </span>
           </div>
-
-          {/* Trademark Disclaimer */}
-          <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1.25rem' }}>
-            <p style={{ fontSize: '0.75rem', color: 'var(--secondary-neutral)', lineHeight: 1.5 }}>
-              PlayStation, Xbox, Nintendo, and other brand names are trademarks of their respective owners. Maxtronics is an independent B2B distributor and does not hold direct manufacturer endorsement unless explicitly stated.
-            </p>
-          </div>
+          <span
+            style={{
+              fontFamily: 'var(--font-headline)',
+              fontSize: '1.5rem',
+              fontWeight: 800,
+              letterSpacing: '-0.02em',
+              color: 'var(--color-text-dark)'
+            }}
+          >
+            MAXTRONICS
+          </span>
         </div>
-      </div>
 
-      {/* Lower Institutional Tier */}
-      <div style={{ backgroundColor: 'var(--surface-low)', borderTop: '1px solid var(--border-subtle)', padding: '1.5rem 0' }}>
-        <div
-          className="container-max"
+        <p
           style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '1rem',
-            fontSize: '0.8125rem'
+            fontSize: '0.95rem',
+            fontWeight: 500,
+            color: 'var(--color-text-muted)',
+            marginBottom: '0.75rem'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-            <span style={{ fontWeight: '700', color: 'var(--on-surface)' }}>Maxtronics Distribution</span>
-            <span style={{ color: 'var(--border-strong)' }}>·</span>
-            <span style={{ color: 'var(--on-surface-variant)' }}>Global institutional hardware, software, and gaming trade logistics.</span>
-          </div>
+          Wholesale Distribution • Global Sourcing
+        </p>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--on-surface-variant)', fontWeight: '600', fontSize: '0.75rem' }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '15px', color: 'var(--primary-container)' }}>verified</span>
-              ISO 9001 Certified Supplier
-            </span>
-            <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'var(--border-strong)' }} />
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '15px', color: 'var(--primary-container)' }}>verified_user</span>
-              Verified Trade Partner
-            </span>
-          </div>
+        <p
+          style={{
+            fontSize: '0.85rem',
+            color: 'var(--color-text-muted)',
+            marginBottom: '2.5rem'
+          }}
+        >
+          Trusted by partners since 2012.
+        </p>
+
+        <div
+          style={{
+            fontSize: '0.8rem',
+            color: 'var(--color-text-muted)',
+            paddingTop: '2rem',
+            borderTop: '1px solid var(--color-border-light)',
+            maxWidth: '420px',
+            margin: '0 auto'
+          }}
+        >
+          &copy; {CURRENT_YEAR} MAXTRONICS Wholesale. All rights reserved.
         </div>
       </div>
     </footer>
   );
 };
+
+export default Footer;
