@@ -41,21 +41,23 @@ const Inventory = ({ onBack }) => {
     };
   }, [retryCount]);
 
-  // sku == eu only show in inventory
+  // EU SKU Filter: Only show products whose SKU starts with 'eu', ends with '_eu'/'-eu', or is an EU SKU
+  const isSkuEu = (sku) => {
+    const s = String(sku || "").trim().toLowerCase();
+    if (!s) return false;
+    return (
+      s.startsWith("eu") ||
+      s.endsWith("_eu") ||
+      s.endsWith("-eu") ||
+      s === "eu" ||
+      s.split(/[-_\s/]+/).includes("eu")
+    );
+  };
+
   const visibleInventory = useMemo(() => {
     return inventory.filter((item) => {
-      const isListed = item?.listOnWebsite === true;
-      const hasStock = Number(item?.quantity) > 0;
-
-      // Filter: sku == eu (matches 'eu', '-eu', 'eu-', or containing EU)
-      const skuVal = String(item?.sku || "").trim().toLowerCase();
-      const isSkuEu =
-        skuVal === "eu" ||
-        skuVal.split(/[-_\s/]+/).includes("eu") ||
-        skuVal.endsWith("-eu") ||
-        skuVal.startsWith("eu-");
-
-      return isListed && hasStock && isSkuEu;
+      const isListed = item?.listOnWebsite !== false;
+      return isListed && isSkuEu(item?.sku);
     });
   }, [inventory]);
 
@@ -290,8 +292,21 @@ const Inventory = ({ onBack }) => {
     }));
     const worksheet = XLSX.utils.json_to_sheet(exportRows);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Inventory");
-    XLSX.writeFile(workbook, "inventory.xlsx");
+    XLSX.utils.book_append_sheet(workbook, worksheet, "EU_Inventory");
+    XLSX.writeFile(workbook, `Maxtronics_EU_Inventory_${new Date().toISOString().slice(0, 10)}.xlsx`);
+  };
+
+  const handleSyncSheet = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const products = await fetchProducts(true);
+      setInventory(products || []);
+    } catch (err) {
+      setError(err?.message || "Failed to re-sync data from Google Sheets.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -300,25 +315,38 @@ const Inventory = ({ onBack }) => {
         {/* Navigation / Header Bar */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px', flexWrap: 'wrap' }}>
               {onBack && (
                 <button
                   onClick={onBack}
                   style={{
-                    padding: '6px 12px',
+                    padding: '6px 14px',
                     borderRadius: '8px',
                     border: '1px solid #cbd5e1',
                     backgroundColor: '#ffffff',
-                    color: '#334155',
-                    fontSize: '0.825rem',
+                    color: '#1e293b',
+                    fontSize: '0.85rem',
                     fontWeight: '600',
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '4px'
+                    gap: '6px',
+                    boxShadow: 'var(--shadow-sm)',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--color-primary)';
+                    e.currentTarget.style.color = 'var(--color-primary)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#cbd5e1';
+                    e.currentTarget.style.color = '#1e293b';
                   }}
                 >
-                  ← Back to Home
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                    arrow_back
+                  </span>
+                  <span>Back to Home</span>
                 </button>
               )}
               <h1 className="text-2xl font-bold text-text-heading" style={{ fontSize: '1.65rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>
@@ -328,59 +356,124 @@ const Inventory = ({ onBack }) => {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  padding: '2px 8px',
+                  gap: '4px',
+                  padding: '3px 10px',
                   borderRadius: '6px',
                   fontSize: '0.75rem',
                   fontWeight: 700,
-                  backgroundColor: '#e0f7fa',
-                  color: '#007799',
-                  border: '1px solid #b2ebf2'
+                  backgroundColor: 'var(--color-primary-light, #f0fafd)',
+                  color: 'var(--color-primary, #008ba3)',
+                  border: '1px solid var(--color-primary-light-border, #d0f0f7)'
                 }}
               >
-                EU SKUs Only
+                <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>
+                  verified
+                </span>
+                EU SKUs Only ({filteredData.length})
               </span>
             </div>
             <p className="text-text-muted text-sm" style={{ color: '#64748b', fontSize: '0.875rem', margin: 0 }}>
-              Real-time availability and stock levels ({filteredData.length} active EU products)
+              Live availability and verified European distributor stock levels
             </p>
           </div>
 
           <div className="flex items-center gap-3" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
             <input
               type="text"
-              placeholder="Search by title, barcode, vendor..."
+              placeholder="Search by title, barcode, vendor, SKU..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="p-2.5 border border-border-light rounded-lg text-sm w-full md:w-80 outline-none focus:ring-2 focus:ring-cyan-500/20"
               style={{
                 padding: '10px 14px',
                 border: '1px solid #cbd5e1',
-                borderRadius: '8px',
+                borderRadius: '10px',
                 fontSize: '0.875rem',
                 minWidth: '260px',
                 outline: 'none',
-                backgroundColor: '#ffffff'
+                backgroundColor: '#ffffff',
+                boxShadow: 'var(--shadow-sm)'
               }}
             />
+
+            {/* Sync Live Sheet Button */}
+            <button
+              onClick={handleSyncSheet}
+              disabled={loading}
+              title="Re-sync latest data from Google Sheet"
+              style={{
+                padding: '10px 14px',
+                backgroundColor: '#ffffff',
+                color: 'var(--color-text-dark, #111827)',
+                fontWeight: 600,
+                fontSize: '0.875rem',
+                borderRadius: '10px',
+                border: '1px solid #cbd5e1',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                boxShadow: 'var(--shadow-sm)',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                if (!loading) {
+                  e.currentTarget.style.borderColor = 'var(--color-primary, #008ba3)';
+                  e.currentTarget.style.color = 'var(--color-primary, #008ba3)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!loading) {
+                  e.currentTarget.style.borderColor = '#cbd5e1';
+                  e.currentTarget.style.color = 'var(--color-text-dark, #111827)';
+                }
+              }}
+            >
+              <span
+                className="material-symbols-outlined"
+                style={{
+                  fontSize: '18px',
+                  animation: loading ? 'spin 1s linear infinite' : 'none'
+                }}
+              >
+                sync
+              </span>
+              <span>Sync Sheet</span>
+            </button>
+
+            {/* Export Button matching Website Theme */}
             <button
               onClick={handleExport}
-              className="px-4 py-2.5 bg-green-600 text-white font-semibold text-sm rounded-lg hover:bg-green-700 transition-colors"
+              className="btn-solid"
               style={{
                 padding: '10px 18px',
-                backgroundColor: '#16a34a',
+                background: 'linear-gradient(135deg, var(--color-primary, #008ba3) 0%, var(--color-primary-hover, #007799) 100%)',
                 color: '#ffffff',
                 fontWeight: 600,
                 fontSize: '0.875rem',
-                borderRadius: '8px',
-                border: 'none',
+                borderRadius: '10px',
+                border: '1px solid rgba(0, 139, 163, 0.2)',
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                boxShadow: '0 2px 8px rgba(22, 163, 74, 0.25)'
+                boxShadow: '0 4px 14px rgba(0, 139, 163, 0.25)',
+                transition: 'all 0.2s ease',
+                fontFamily: 'var(--font-body)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 139, 163, 0.35)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 139, 163, 0.25)';
               }}
             >
-              <span>📥</span> Export
+              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                download
+              </span>
+              <span>Export Manifest ({filteredData.length})</span>
             </button>
           </div>
         </div>

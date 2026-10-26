@@ -2,7 +2,7 @@ import React from 'react';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
-export const Footer = () => {
+export const Footer = ({ onNavigate }) => {
   return (
     <footer
       style={{
@@ -69,11 +69,71 @@ export const Footer = () => {
           style={{
             fontSize: '0.85rem',
             color: 'var(--color-text-muted)',
-            marginBottom: '2.5rem'
+            marginBottom: '1.75rem'
           }}
         >
           Trusted by partners since 2012.
         </p>
+
+        {/* Quick Portal Links */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '1.25rem',
+            flexWrap: 'wrap',
+            marginBottom: '2.5rem'
+          }}
+        >
+          <button
+            onClick={() => {
+              if (onNavigate) {
+                onNavigate('home');
+              } else {
+                window.location.hash = '';
+              }
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--color-text-dark)',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              cursor: 'pointer'
+            }}
+          >
+            Home
+          </button>
+          <span style={{ color: 'var(--color-border-light)' }}>•</span>
+          <button
+            onClick={() => {
+              if (onNavigate) {
+                onNavigate('inventory');
+              } else {
+                window.location.hash = '#/inventory';
+              }
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            style={{
+              background: 'var(--color-primary-light, #f0fafd)',
+              border: '1px solid var(--color-primary-light-border, #d0f0f7)',
+              color: 'var(--color-primary, #008ba3)',
+              fontSize: '0.875rem',
+              fontWeight: 700,
+              padding: '6px 14px',
+              borderRadius: '999px',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>inventory_2</span>
+            <span>Live EU Inventory Portal</span>
+          </button>
+        </div>
 
         <div
           style={{

@@ -5,7 +5,8 @@ export const LiveManifestTable = ({
   selectedCategory,
   setSelectedCategory,
   onStageProduct,
-  onShowToast
+  onShowToast,
+  onNavigate
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currency, setCurrency] = useState('GBP'); // GBP, EUR, USD
@@ -178,7 +179,7 @@ export const LiveManifestTable = ({
             </button>
 
             <button
-              onClick={() => (window.location.hash = '#/inventory')}
+              onClick={() => onNavigate ? onNavigate('inventory') : (window.location.hash = '#/inventory')}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

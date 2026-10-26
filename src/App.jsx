@@ -137,16 +137,30 @@ export function App() {
           />
         ) : (
           <>
-            <Hero />
+            <Hero
+              onNavigate={(view) => {
+                setCurrentView(view);
+                window.location.hash = view === 'inventory' ? '#/inventory' : '';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
 
             <Categories onSelectCategory={(catId) => setSelectedCategory(catId)} />
 
+            {/* Live Wholesale Manifest & Tiered Rates component commented out from homepage */}
+            {/*
             <LiveManifestTable
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
               onStageProduct={handleStageProduct}
               onShowToast={showToast}
+              onNavigate={(view) => {
+                setCurrentView(view);
+                window.location.hash = view === 'inventory' ? '#/inventory' : '';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
             />
+            */}
 
             <WholesalePartnerSection onShowToast={showToast} />
           </>
@@ -154,7 +168,13 @@ export function App() {
       </main>
 
       {/* Basco Centered Footer */}
-      <Footer />
+      <Footer
+        onNavigate={(view) => {
+          setCurrentView(view);
+          window.location.hash = view === 'inventory' ? '#/inventory' : '';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
 
       {/* Staged Order Cart Drawer */}
       <CartDrawer

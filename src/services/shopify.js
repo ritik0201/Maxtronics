@@ -1,9 +1,89 @@
-/**
- * Shopify / Remote Inventory Service
- * Fetches products from decrypted inventory endpoint or supplies verified wholesale catalog.
- */
+import * as XLSX from 'xlsx';
 
-export async function fetchProducts() {
+export const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/1KQHoC--H1BMfPA-SfWg6DNYgZ0xXi_4goBVO22Nfz2U/export?format=csv';
+
+let memoryCache = null;
+
+export async function fetchProducts(forceRefresh = false) {
+  if (memoryCache && !forceRefresh) {
+    return memoryCache;
+  }
+
+  // 1. Fetch from live Google Sheets document
+  try {
+    const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+    if (!response.ok) {
+      throw new Error(`Google Sheets responded with HTTP status ${response.status}`);
+    }
+    const csvText = await response.text();
+    const workbook = XLSX.read(csvText, { type: 'string' });
+    const sheetName = workbook.SheetNames[0];
+    const rawRows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { defval: '' });
+
+    if (rawRows && rawRows.length > 0) {
+      // Filter out supplementary image rows where Variant SKU is empty
+      const productRows = rawRows.filter((r) => {
+        const sku = String(r['Variant SKU'] || '').trim();
+        const title = String(r['Title'] || '').trim();
+        return sku.length > 0 && title.length > 0;
+      });
+
+      const parsedProducts = productRows.map((r, idx) => {
+        const sku = String(r['Variant SKU'] || '').trim();
+        const barcode = String(
+          r['Variant Barcode'] ||
+          r['Barcode (product.metafields.app--361353084929--custom.barcode)'] ||
+          ''
+        ).trim();
+        const title = String(r['Title'] || '').trim();
+        const vendor = String(
+          r['Vendor'] ||
+          r['Brand (product.metafields.custom.brand)'] ||
+          'Maxtronics'
+        ).trim();
+        const platform = String(
+          r['Video Game Platform (product.metafields.custom.video_game_platform)'] ||
+          r['Type'] ||
+          'Gaming'
+        ).trim();
+        const rating = String(
+          r['Age Rating (product.metafields.custom.age_rating)'] ||
+          r['ESRB Rating (product.metafields.custom.esrb_rating)'] ||
+          r['PEGI rating (product.metafields.shopify.pegi-rating)'] ||
+          'PEGI EU'
+        ).trim();
+        const quantity = Math.max(0, parseInt(r['Variant Inventory Qty'], 10) || 0);
+        const price = parseFloat(r['Variant Price']) || 0;
+        const image = String(r['Image Src'] || '').trim();
+        const status = String(r['Status'] || '').trim().toLowerCase();
+        const version = String(r['Version (product.metafields.custom.version)'] || '').trim();
+
+        return {
+          id: `sheet-${idx}-${sku || barcode}`,
+          barcode: barcode || `NO-BARCODE-${idx + 1}`,
+          sku: sku,
+          title: title || 'Untitled Product',
+          vendor: vendor,
+          platform: platform,
+          rating: rating.includes('★') ? rating : `${rating} ★`,
+          quantity,
+          price,
+          currency: 'USD',
+          image: image || null,
+          imageAlt: title || 'Product',
+          listOnWebsite: status !== 'draft',
+          version
+        };
+      });
+
+      memoryCache = parsedProducts;
+      return parsedProducts;
+    }
+  } catch (err) {
+    console.warn('Google Sheets live fetch error, checking fallbacks:', err);
+  }
+
+  // 2. Check decryptedUrl session storage fallback if any
   const decryptedUrl = typeof window !== 'undefined' ? sessionStorage.getItem('decrypted_inventory_url') : null;
 
   if (decryptedUrl && decryptedUrl.startsWith('http')) {
@@ -16,7 +96,7 @@ export async function fetchProducts() {
           : data.products || data.items || data.inventory || [];
 
         if (rawProducts.length > 0) {
-          return rawProducts.map((p, idx) => ({
+          const list = rawProducts.map((p, idx) => ({
             barcode: p.barcode || p.ean || p.upc || `50309${1000000 + idx}`,
             title: p.title || p.name || `Wholesale Item #${idx + 1}`,
             vendor: p.vendor || p.brand || 'Maxtronics Direct',
@@ -30,14 +110,16 @@ export async function fetchProducts() {
             listOnWebsite: p.listOnWebsite !== false,
             sku: p.sku || 'EU'
           }));
+          memoryCache = list;
+          return list;
         }
       }
     } catch (err) {
-      console.warn('Live API fetch skipped or network error, falling back to authenticated catalog:', err);
+      console.warn('Decrypted URL fetch skipped:', err);
     }
   }
 
-  // Authenticated live wholesale catalog with EU SKUs and test region variations
+  // 3. Fallback catalog
   return [
     {
       barcode: '5030932124890',
