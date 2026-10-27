@@ -75,8 +75,7 @@ export const Footer = ({ onNavigate }) => {
           Trusted by partners since 2012.
         </p>
 
-        {/* Quick Portal Links */}
-        <div
+        {/* <div
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -86,28 +85,28 @@ export const Footer = ({ onNavigate }) => {
             marginBottom: '2.5rem'
           }}
         >
-          {/* <button
-            onClick={() => {
-              if (onNavigate) {
-                onNavigate('home');
-              } else {
-                window.location.hash = '';
-              }
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--color-text-dark)',
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              cursor: 'pointer'
-            }}
-          >
-            Home
-          </button> */}
-          {/* <span style={{ color: 'var(--color-border-light)' }}>•</span> */}
-          {/* <button
+           <button
+             onClick={() => {
+          //     if (onNavigate) {
+          //       onNavigate('home');
+          //     } else {
+          //       window.location.hash = '';
+          //     }
+          //     window.scrollTo({ top: 0, behavior: 'smooth' });
+          //   }}
+          //   style={{
+          //     background: 'none',
+          //     border: 'none',
+          //     color: 'var(--color-text-dark)',
+          //     fontSize: '0.875rem',
+          //     fontWeight: 600,
+          //     cursor: 'pointer'
+             }}
+           >
+             Home
+           </button> 
+           <span style={{ color: 'var(--color-border-light)' }}>•</span> 
+          <button
             onClick={() => {
               if (onNavigate) {
                 onNavigate('inventory');
@@ -132,8 +131,8 @@ export const Footer = ({ onNavigate }) => {
           >
             <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>inventory_2</span>
             <span>Live EU Inventory Portal</span>
-          </button> */}
-        </div>
+          </button> 
+        </div> */}
 
         <div
           style={{
