@@ -106,8 +106,8 @@ export const Footer = ({ onNavigate }) => {
           >
             Home
           </button>
-          <span style={{ color: 'var(--color-border-light)' }}>•</span>
-          <button
+          {/* <span style={{ color: 'var(--color-border-light)' }}>•</span> */}
+          {/* <button
             onClick={() => {
               if (onNavigate) {
                 onNavigate('inventory');
@@ -132,7 +132,7 @@ export const Footer = ({ onNavigate }) => {
           >
             <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>inventory_2</span>
             <span>Live EU Inventory Portal</span>
-          </button>
+          </button> */}
         </div>
 
         <div
