@@ -446,23 +446,16 @@ const Inventory = ({ onBack }) => {
         {/* Header */}
         <div className="inv-header">
           <div className="inv-heading-block">
-            {onBack && (
-              <button onClick={onBack} className="inv-back-btn">
-                <span className="material-symbols-outlined inv-btn-icon">
-                  arrow_back
-                </span>
-                <span>Back to Home</span>
-              </button>
-            )}
+            
             <div className="inv-title-row">
               <h1 className="inv-title">Product Inventory</h1>
               {/* Class name kept as inv-eu-badge so existing CSS still applies */}
-              <span className="inv-eu-badge">
+              {/* <span className="inv-eu-badge">
                 <span className="material-symbols-outlined inv-badge-icon">
                   verified
                 </span>
                 UK SKUs Only ({filteredData.length})
-              </span>
+              </span> */}
             </div>
             <p className="inv-subtitle">
               Live availability and verified UK distributor stock levels

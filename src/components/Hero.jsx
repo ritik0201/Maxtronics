@@ -73,7 +73,7 @@ export const Hero = ({ onNavigate }) => {
               </span>
 
               {/* Clickable Live Inventory Pill */}
-              <button
+              {/* <button
                 onClick={handleOpenInventory}
                 title="Open Live EU Inventory"
                 style={{
@@ -105,7 +105,7 @@ export const Hero = ({ onNavigate }) => {
                   inventory_2
                 </span>
                 <span>LIVE EU INVENTORY PORTAL →</span>
-              </button>
+              </button> */}
             </div>
 
             <p
@@ -148,7 +148,7 @@ export const Hero = ({ onNavigate }) => {
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
               {/* Primary CTA: Live EU Inventory */}
-              <button
+              {/* <button
                 onClick={handleOpenInventory}
                 className="btn-solid"
                 style={{
@@ -165,7 +165,7 @@ export const Hero = ({ onNavigate }) => {
                   inventory_2
                 </span>
                 <span>Live EU Inventory</span>
-              </button>
+              </button> */}
 
               <a
                 href="#apply"
@@ -174,7 +174,16 @@ export const Hero = ({ onNavigate }) => {
                   scrollTo('apply');
                 }}
                 className="btn-outline"
-                style={{ padding: '0.85rem 1.75rem', fontSize: '1rem' }}
+                style={{ padding: '0.85rem 1.75rem', fontSize: '1rem' }}className="btn-solid"
+                style={{
+                  padding: '0.85rem 1.75rem',
+                  fontSize: '1rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 14px rgba(0, 139, 163, 0.3)'
+                }}
               >
                 Apply for Account
               </a>

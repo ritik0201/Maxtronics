@@ -223,8 +223,8 @@ export const Navbar = ({ cartCount = 0, onOpenCart, currentView = 'home', onNavi
               <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
                 inventory_2
               </span>
-              <span>Live Inventory</span>
-              <span
+              <span>Inventory</span>
+              {/* <span
                 style={{
                   fontSize: '0.65rem',
                   fontWeight: 800,
@@ -235,7 +235,7 @@ export const Navbar = ({ cartCount = 0, onOpenCart, currentView = 'home', onNavi
                 }}
               >
                 UK
-              </span>
+              </span> */}
             </button>
           </li>
         </ul>
@@ -431,9 +431,9 @@ export const Navbar = ({ cartCount = 0, onOpenCart, currentView = 'home', onNavi
         >
           <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)' }}>inventory_2</span>
-            <span>Live Inventory</span>
+            <span>Inventory</span>
           </span>
-          <span
+          {/* <span
             style={{
               fontSize: '0.7rem',
               fontWeight: 800,
@@ -444,7 +444,7 @@ export const Navbar = ({ cartCount = 0, onOpenCart, currentView = 'home', onNavi
             }}
           >
             EU SKUs
-          </span>
+          </span> */}
         </button>
         <div style={{ paddingTop: '1rem' }}>
           <a
