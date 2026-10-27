@@ -86,7 +86,7 @@ export const Footer = ({ onNavigate }) => {
             marginBottom: '2.5rem'
           }}
         >
-          <button
+          {/* <button
             onClick={() => {
               if (onNavigate) {
                 onNavigate('home');
@@ -105,7 +105,7 @@ export const Footer = ({ onNavigate }) => {
             }}
           >
             Home
-          </button>
+          </button> */}
           {/* <span style={{ color: 'var(--color-border-light)' }}>•</span> */}
           {/* <button
             onClick={() => {
