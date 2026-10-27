@@ -234,7 +234,7 @@ export const Navbar = ({ cartCount = 0, onOpenCart, currentView = 'home', onNavi
                   borderRadius: '999px'
                 }}
               >
-                EU
+                UK
               </span>
             </button>
           </li>

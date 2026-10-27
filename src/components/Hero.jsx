@@ -168,25 +168,13 @@ export const Hero = ({ onNavigate }) => {
               </button>
 
               <a
-                href="#manifest"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollTo('manifest');
-                }}
-                className="btn-outline"
-                style={{ padding: '0.85rem 1.75rem', fontSize: '1rem' }}
-              >
-                Browse Live Manifest
-              </a>
-
-              <a
                 href="#apply"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollTo('apply');
                 }}
-                className="btn-secondary"
-                style={{ padding: '0.85rem 1.5rem', fontSize: '1rem' }}
+                className="btn-outline"
+                style={{ padding: '0.85rem 1.75rem', fontSize: '1rem' }}
               >
                 Apply for Account
               </a>
